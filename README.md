@@ -40,4 +40,4 @@ This project is open-source under the **MIT License**.
 ---  
 Enjoy the game! 🎉 Let the battle of **Gun, Water, and Snake** begin! 🐍💦🔫  
 
-Made with ❤️ by [Your Name]
+Made with ❤️ by Umar J
