@@ -3,7 +3,7 @@
   "name": "gun-water-snake-game",
   "builds": [
     {
-      "src": "index.html",
+      "src": "**/*",
       "use": "@vercel/static"
     }
   ],
