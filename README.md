@@ -68,6 +68,14 @@ Simply visit **[https://gun-water-snake-game.vercel.app](https://gun-water-snake
 ### Option 3: Direct File Access
 Simply download the files and open `index.html` in your web browser!
 
+### Option 4: Python Version
+For the original terminal-based Python version:
+```bash
+python main.py
+# or
+python main_shorten.py
+```
+
 ## 📁 Project Structure
 
 ```
