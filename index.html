@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gun Water Snake Game - By Umar J</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+    
+    <!-- Meta tags for SEO and social sharing -->
+    <meta name="description" content="Play the exciting Gun Water Snake game by Umar J. A modern web-based strategy game with beautiful UI and animations.">
+    <meta name="keywords" content="gun water snake game, strategy game, web game, umar j, javascript game">
+    <meta name="author" content="Umar J">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gun-water-snake-game.vercel.app/">
+    <meta property="og:title" content="Gun Water Snake Game - By Umar J">
+    <meta property="og:description" content="Play the exciting Gun Water Snake game with beautiful UI and animations.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://gun-water-snake-game.vercel.app/">
+    <meta property="twitter:title" content="Gun Water Snake Game - By Umar J">
+    <meta property="twitter:description" content="Play the exciting Gun Water Snake game with beautiful UI and animations.">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="brand">
+                <i class="fas fa-gamepad"></i>
+                <span class="brand-text">Umar J</span>
+            </div>
+            <h1 class="game-title">Gun Water Snake</h1>
+            <div class="subtitle">The Ultimate Strategy Game</div>
+        </header>
+
+        <!-- Game Area -->
+        <main class="game-area">
+            <!-- Score Board -->
+            <div class="scoreboard">
+                <div class="score-item">
+                    <span class="score-label">Your Score</span>
+                    <span class="score-value" id="playerScore">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Computer Score</span>
+                    <span class="score-value" id="computerScore">0</span>
+                </div>
+                <div class="score-item">
+                    <span class="score-label">Draws</span>
+                    <span class="score-value" id="drawScore">0</span>
+                </div>
+            </div>
+
+            <!-- Game Instructions -->
+            <div class="instructions" id="instructions">
+                <h3><i class="fas fa-info-circle"></i> How to Play</h3>
+                <div class="rules">
+                    <div class="rule">
+                        <i class="fas fa-tint"></i>
+                        <span><strong>Water</strong> beats <strong>Gun</strong> (Gun rusts)</span>
+                    </div>
+                    <div class="rule">
+                        <i class="fas fa-gun"></i>
+                        <span><strong>Gun</strong> beats <strong>Snake</strong> (Gun shoots Snake)</span>
+                    </div>
+                    <div class="rule">
+                        <i class="fas fa-snake"></i>
+                        <span><strong>Snake</strong> beats <strong>Water</strong> (Snake drinks Water)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Choice Selection -->
+            <div class="choice-section">
+                <h2>Choose Your Weapon</h2>
+                <div class="choices">
+                    <button class="choice-btn" data-choice="water" id="waterBtn">
+                        <i class="fas fa-tint"></i>
+                        <span>Water</span>
+                    </button>
+                    <button class="choice-btn" data-choice="gun" id="gunBtn">
+                        <i class="fas fa-gun"></i>
+                        <span>Gun</span>
+                    </button>
+                    <button class="choice-btn" data-choice="snake" id="snakeBtn">
+                        <i class="fas fa-snake"></i>
+                        <span>Snake</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Game Result -->
+            <div class="game-result" id="gameResult" style="display: none;">
+                <div class="battle-arena">
+                    <div class="player-choice">
+                        <h3>You</h3>
+                        <div class="choice-display" id="playerChoice">
+                            <i id="playerIcon"></i>
+                            <span id="playerText"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="vs-section">
+                        <span class="vs-text">VS</span>
+                        <div class="battle-animation" id="battleAnimation">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="computer-choice">
+                        <h3>Computer</h3>
+                        <div class="choice-display" id="computerChoice">
+                            <i id="computerIcon"></i>
+                            <span id="computerText"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-message" id="resultMessage"></div>
+                <button class="play-again-btn" id="playAgainBtn">
+                    <i class="fas fa-redo"></i>
+                    Play Again
+                </button>
+            </div>
+
+            <!-- Reset Game Button -->
+            <div class="reset-section">
+                <button class="reset-btn" id="resetBtn">
+                    <i class="fas fa-refresh"></i>
+                    Reset Scores
+                </button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Umar J. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

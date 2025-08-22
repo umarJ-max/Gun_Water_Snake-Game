@@ -1,0 +1,32 @@
+{
+  "name": "gun-water-snake-game",
+  "version": "1.0.0",
+  "description": "A beautiful web-based Gun Water Snake game by Umar J",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'No build process needed for static site'",
+    "dev": "serve . -p 3000"
+  },
+  "keywords": [
+    "game",
+    "javascript",
+    "web-game",
+    "gun-water-snake",
+    "rock-paper-scissors",
+    "umar-j"
+  ],
+  "author": "Umar J",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/umarJ-max/Gun_Water_Snake-Game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/umarJ-max/Gun_Water_Snake-Game/issues"
+  },
+  "homepage": "https://gun-water-snake-game.vercel.app"
+}
