@@ -1,165 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gun Water Snake Game - By Umar J</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
-    
-    <!-- Meta tags for SEO and social sharing -->
-    <meta name="description" content="Play the exciting Gun Water Snake game by Umar J. A modern web-based strategy game with beautiful UI and stunning animations.">
-    <meta name="keywords" content="gun water snake game, strategy game, web game, umar j, javascript game, modern ui">
-    <meta name="author" content="Umar J">
-    <meta name="version" content="1.0.1">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gun-water-snake-game.vercel.app/">
-    <meta property="og:title" content="Gun Water Snake Game - By Umar J">
-    <meta property="og:description" content="Play the exciting Gun Water Snake game with beautiful UI and animations.">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://gun-water-snake-game.vercel.app/">
-    <meta property="twitter:title" content="Gun Water Snake Game - By Umar J">
-    <meta property="twitter:description" content="Play the exciting Gun Water Snake game with beautiful UI and animations.">
-    
-    <link rel="stylesheet" href="style.css?v=1.0.1">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gun · Water · Snake — a Rock Paper Scissors variant. Pick your move, beat the computer." />
+  <title>Gun · Water · Snake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='85'>🐍</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="brand">
-                <i class="fas fa-gamepad"></i>
-                <span class="brand-text">Umar J</span>
-            </div>
-            <h1 class="game-title">Gun Water Snake</h1>
-            <div class="subtitle">The Ultimate Strategy Game</div>
-        </header>
 
-        <!-- Game Area -->
-        <main class="game-area">
-            <!-- Score Board -->
-            <div class="scoreboard">
-                <div class="score-item">
-                    <span class="score-label">Your Score</span>
-                    <span class="score-value" id="playerScore">0</span>
-                </div>
-                <div class="score-item">
-                    <span class="score-label">Computer Score</span>
-                    <span class="score-value" id="computerScore">0</span>
-                </div>
-                <div class="score-item">
-                    <span class="score-label">Draws</span>
-                    <span class="score-value" id="drawScore">0</span>
-                </div>
-            </div>
+  <nav class="nav">
+    <div class="nav-logo">G·W·S</div>
+    <div class="nav-hint">W · G · S keys work too</div>
+  </nav>
 
-            <!-- Game Instructions -->
-            <div class="instructions" id="instructions">
-                <h3><i class="fas fa-info-circle"></i> How to Play</h3>
-                <div class="rules">
-                    <div class="rule">
-                        <i class="fas fa-tint"></i>
-                        <span><strong>Water</strong> beats <strong>Gun</strong> (Gun rusts)</span>
-                    </div>
-                    <div class="rule">
-                        <i class="fas fa-gun"></i>
-                        <span><strong>Gun</strong> beats <strong>Snake</strong> (Gun shoots Snake)</span>
-                    </div>
-                    <div class="rule">
-                        <i class="fas fa-snake"></i>
-                        <span><strong>Snake</strong> beats <strong>Water</strong> (Snake drinks Water)</span>
-                    </div>
-                </div>
-            </div>
+  <main class="main">
 
-            <!-- Choice Selection -->
-            <div class="choice-section">
-                <h2>Choose Your Weapon</h2>
-                <div class="choices">
-                    <button class="choice-btn" data-choice="water" id="waterBtn">
-                        <i class="fas fa-tint"></i>
-                        <span>Water</span>
-                    </button>
-                    <button class="choice-btn" data-choice="gun" id="gunBtn">
-                        <i class="fas fa-gun"></i>
-                        <span>Gun</span>
-                    </button>
-                    <button class="choice-btn" data-choice="snake" id="snakeBtn">
-                        <i class="fas fa-snake"></i>
-                        <span>Snake</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Game Result -->
-            <div class="game-result" id="gameResult" style="display: none;">
-                <div class="battle-arena">
-                    <div class="player-choice">
-                        <h3>You</h3>
-                        <div class="choice-display" id="playerChoice">
-                            <i id="playerIcon"></i>
-                            <span id="playerText"></span>
-                        </div>
-                    </div>
-                    
-                    <div class="vs-section">
-                        <span class="vs-text">VS</span>
-                        <div class="battle-animation" id="battleAnimation">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="computer-choice">
-                        <h3>Computer</h3>
-                        <div class="choice-display" id="computerChoice">
-                            <i id="computerIcon"></i>
-                            <span id="computerText"></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="result-message" id="resultMessage"></div>
-                <button class="play-again-btn" id="playAgainBtn">
-                    <i class="fas fa-redo"></i>
-                    Play Again
-                </button>
-            </div>
-
-            <!-- Reset Game Button -->
-            <div class="reset-section">
-                <button class="reset-btn" id="resetBtn">
-                    <i class="fas fa-refresh"></i>
-                    Reset Scores
-                </button>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <p>&copy; 2025 Umar J. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-        </footer>
+    <!-- Score strip -->
+    <div class="score-strip">
+      <div class="score-cell">
+        <span class="score-n" id="playerScore">0</span>
+        <span class="score-l">You</span>
+      </div>
+      <div class="score-sep">:</div>
+      <div class="score-cell">
+        <span class="score-n" id="drawScore">0</span>
+        <span class="score-l">Draw</span>
+      </div>
+      <div class="score-sep">:</div>
+      <div class="score-cell">
+        <span class="score-n" id="computerScore">0</span>
+        <span class="score-l">CPU</span>
+      </div>
+      <button class="btn-reset" id="resetBtn" title="Reset scores">↺</button>
     </div>
 
-    <!-- Particles Background -->
-    <div id="particles-js"></div>
+    <!-- Rules card (shown before first move) -->
+    <div class="rules-card" id="rulesCard">
+      <p class="rules-title">How it works</p>
+      <div class="rules-grid">
+        <div class="rule-item">
+          <span class="rule-emoji">💧</span>
+          <span class="rule-text">Water <em>rusts</em> Gun</span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-emoji">🔫</span>
+          <span class="rule-text">Gun <em>shoots</em> Snake</span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-emoji">🐍</span>
+          <span class="rule-text">Snake <em>drinks</em> Water</span>
+        </div>
+      </div>
+    </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="script.js?v=1.0.1"></script>
+    <!-- Pick buttons -->
+    <div class="picks" id="picksArea">
+      <button class="pick-btn" data-choice="water">
+        <span class="pick-emoji">💧</span>
+        <span class="pick-label">Water</span>
+        <span class="pick-key">W</span>
+      </button>
+      <button class="pick-btn" data-choice="gun">
+        <span class="pick-emoji">🔫</span>
+        <span class="pick-label">Gun</span>
+        <span class="pick-key">G</span>
+      </button>
+      <button class="pick-btn" data-choice="snake">
+        <span class="pick-emoji">🐍</span>
+        <span class="pick-label">Snake</span>
+        <span class="pick-key">S</span>
+      </button>
+    </div>
+
+    <!-- Result area -->
+    <div class="result-area hidden" id="resultArea">
+      <div class="versus-row">
+        <div class="versus-side">
+          <span class="versus-emoji" id="playerEmoji"></span>
+          <span class="versus-name" id="playerName"></span>
+          <span class="versus-who">You</span>
+        </div>
+        <div class="versus-mid">
+          <span class="vs-badge">VS</span>
+        </div>
+        <div class="versus-side">
+          <span class="versus-emoji" id="cpuEmoji"></span>
+          <span class="versus-name" id="cpuName"></span>
+          <span class="versus-who">CPU</span>
+        </div>
+      </div>
+
+      <div class="outcome-band" id="outcomeBand">
+        <span class="outcome-text" id="outcomeText"></span>
+        <span class="outcome-explain" id="outcomeExplain"></span>
+      </div>
+
+      <button class="btn-again" id="playAgainBtn">Play again →</button>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    Made with <span class="heart">♥</span> by <a href="https://github.com/umarJ-max" target="_blank">Umar J</a>
+    &nbsp;·&nbsp; Space or Enter to play again
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
