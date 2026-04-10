@@ -15,7 +15,14 @@
 
   <nav class="nav">
     <div class="nav-logo">G·W·S</div>
-    <div class="nav-hint">W · G · S keys work too</div>
+    <div class="nav-controls">
+      <!-- Mode toggle -->
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" data-mode="cpu" id="btnCpu">vs CPU</button>
+        <button class="mode-btn" data-mode="pvp" id="btnPvp">2 Players</button>
+      </div>
+      <div class="nav-hint" id="navHint">W · G · S keys</div>
+    </div>
   </nav>
 
   <main class="main">
@@ -23,8 +30,8 @@
     <!-- Score strip -->
     <div class="score-strip">
       <div class="score-cell">
-        <span class="score-n" id="playerScore">0</span>
-        <span class="score-l">You</span>
+        <span class="score-n" id="p1Score">0</span>
+        <span class="score-l" id="p1Label">You</span>
       </div>
       <div class="score-sep">:</div>
       <div class="score-cell">
@@ -33,73 +40,96 @@
       </div>
       <div class="score-sep">:</div>
       <div class="score-cell">
-        <span class="score-n" id="computerScore">0</span>
-        <span class="score-l">CPU</span>
+        <span class="score-n" id="p2Score">0</span>
+        <span class="score-l" id="p2Label">CPU</span>
       </div>
       <button class="btn-reset" id="resetBtn" title="Reset scores">↺</button>
     </div>
 
-    <!-- Rules card (shown before first move) -->
+    <!-- Rules card -->
     <div class="rules-card" id="rulesCard">
       <p class="rules-title">How it works</p>
       <div class="rules-grid">
-        <div class="rule-item">
-          <span class="rule-emoji">💧</span>
-          <span class="rule-text">Water <em>rusts</em> Gun</span>
-        </div>
-        <div class="rule-item">
-          <span class="rule-emoji">🔫</span>
-          <span class="rule-text">Gun <em>shoots</em> Snake</span>
-        </div>
-        <div class="rule-item">
-          <span class="rule-emoji">🐍</span>
-          <span class="rule-text">Snake <em>drinks</em> Water</span>
-        </div>
+        <div class="rule-item"><span class="rule-emoji">💧</span><span class="rule-text">Water <em>rusts</em> Gun</span></div>
+        <div class="rule-item"><span class="rule-emoji">🔫</span><span class="rule-text">Gun <em>shoots</em> Snake</span></div>
+        <div class="rule-item"><span class="rule-emoji">🐍</span><span class="rule-text">Snake <em>drinks</em> Water</span></div>
       </div>
     </div>
 
-    <!-- Pick buttons -->
+    <!-- ── CPU MODE: Pick buttons ── -->
     <div class="picks" id="picksArea">
-      <button class="pick-btn" data-choice="water">
-        <span class="pick-emoji">💧</span>
-        <span class="pick-label">Water</span>
-        <span class="pick-key">W</span>
-      </button>
-      <button class="pick-btn" data-choice="gun">
-        <span class="pick-emoji">🔫</span>
-        <span class="pick-label">Gun</span>
-        <span class="pick-key">G</span>
-      </button>
-      <button class="pick-btn" data-choice="snake">
-        <span class="pick-emoji">🐍</span>
-        <span class="pick-label">Snake</span>
-        <span class="pick-key">S</span>
-      </button>
+      <button class="pick-btn" data-choice="water"><span class="pick-emoji">💧</span><span class="pick-label">Water</span><span class="pick-key">W</span></button>
+      <button class="pick-btn" data-choice="gun">  <span class="pick-emoji">🔫</span><span class="pick-label">Gun</span>  <span class="pick-key">G</span></button>
+      <button class="pick-btn" data-choice="snake"><span class="pick-emoji">🐍</span><span class="pick-label">Snake</span><span class="pick-key">S</span></button>
     </div>
 
-    <!-- Result area -->
+    <!-- CPU thinking state -->
+    <div class="thinking-area hidden" id="thinkingArea">
+      <div class="thinking-player">
+        <span class="th-label">You picked</span>
+        <span class="th-emoji" id="thPlayerEmoji"></span>
+        <span class="th-name" id="thPlayerName"></span>
+      </div>
+      <div class="thinking-cpu">
+        <span class="th-label">CPU is thinking…</span>
+        <span class="th-slot" id="thSlot">❓</span>
+      </div>
+    </div>
+
+    <!-- ── PVP MODE ── -->
+    <!-- Step 1: P1 picks (secret) -->
+    <div class="pvp-step hidden" id="pvpStep1">
+      <div class="pvp-banner pvp-banner-1">
+        <span class="pvp-turn-dot"></span>
+        Player 1 — make your pick
+      </div>
+      <div class="picks picks-pvp">
+        <button class="pick-btn" data-pvp="1" data-choice="water"><span class="pick-emoji">💧</span><span class="pick-label">Water</span></button>
+        <button class="pick-btn" data-pvp="1" data-choice="gun">  <span class="pick-emoji">🔫</span><span class="pick-label">Gun</span></button>
+        <button class="pick-btn" data-pvp="1" data-choice="snake"><span class="pick-emoji">🐍</span><span class="pick-label">Snake</span></button>
+      </div>
+    </div>
+
+    <!-- Step 1.5: Pass screen -->
+    <div class="pvp-pass hidden" id="pvpPass">
+      <div class="pass-icon">🙈</div>
+      <p class="pass-title">P1 locked in!</p>
+      <p class="pass-sub">Pass the device to <strong>Player 2</strong></p>
+      <button class="btn-pass" id="passBtn">Ready → Player 2's turn</button>
+    </div>
+
+    <!-- Step 2: P2 picks -->
+    <div class="pvp-step hidden" id="pvpStep2">
+      <div class="pvp-banner pvp-banner-2">
+        <span class="pvp-turn-dot"></span>
+        Player 2 — make your pick
+      </div>
+      <div class="picks picks-pvp">
+        <button class="pick-btn" data-pvp="2" data-choice="water"><span class="pick-emoji">💧</span><span class="pick-label">Water</span></button>
+        <button class="pick-btn" data-pvp="2" data-choice="gun">  <span class="pick-emoji">🔫</span><span class="pick-label">Gun</span></button>
+        <button class="pick-btn" data-pvp="2" data-choice="snake"><span class="pick-emoji">🐍</span><span class="pick-label">Snake</span></button>
+      </div>
+    </div>
+
+    <!-- Result area (shared) -->
     <div class="result-area hidden" id="resultArea">
       <div class="versus-row">
         <div class="versus-side">
-          <span class="versus-emoji" id="playerEmoji"></span>
-          <span class="versus-name" id="playerName"></span>
-          <span class="versus-who">You</span>
+          <span class="versus-emoji" id="p1Emoji"></span>
+          <span class="versus-name"  id="p1Name"></span>
+          <span class="versus-who"   id="p1Who">You</span>
         </div>
-        <div class="versus-mid">
-          <span class="vs-badge">VS</span>
-        </div>
+        <div class="versus-mid"><span class="vs-badge">VS</span></div>
         <div class="versus-side">
-          <span class="versus-emoji" id="cpuEmoji"></span>
-          <span class="versus-name" id="cpuName"></span>
-          <span class="versus-who">CPU</span>
+          <span class="versus-emoji" id="p2Emoji"></span>
+          <span class="versus-name"  id="p2Name"></span>
+          <span class="versus-who"   id="p2Who">CPU</span>
         </div>
       </div>
-
       <div class="outcome-band" id="outcomeBand">
-        <span class="outcome-text" id="outcomeText"></span>
+        <span class="outcome-text"    id="outcomeText"></span>
         <span class="outcome-explain" id="outcomeExplain"></span>
       </div>
-
       <button class="btn-again" id="playAgainBtn">Play again →</button>
     </div>
 
@@ -107,7 +137,6 @@
 
   <footer class="footer">
     Made with <span class="heart">♥</span> by <a href="https://github.com/umarJ-max" target="_blank">Umar J</a>
-    &nbsp;·&nbsp; Space or Enter to play again
   </footer>
 
   <script src="script.js"></script>
